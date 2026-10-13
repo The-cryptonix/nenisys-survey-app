@@ -59,6 +59,12 @@ export const CloseIcon = () => (
     <path d="M6 6l12 12M18 6L6 18" />
   </Svg>
 );
+export const RefreshIcon = () => (
+  <Svg>
+    <path d="M20 12a8 8 0 1 1-2.3-5.7" />
+    <path d="M20 4v4h-4" />
+  </Svg>
+);
 export const ShieldIcon = () => (
   <Svg>
     <path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6l8-3z" />
