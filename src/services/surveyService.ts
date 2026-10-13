@@ -94,6 +94,7 @@ function submitError(res: HttpResult): AppError {
   const code = isRecord(res.data) && isString(res.data.error) ? res.data.error : '';
   switch (res.status) {
     case 403:
+      if (code === 'verification_failed') return new AppError('verification');
       return new AppError(code === 'survey_not_open' ? 'not_open' : 'closed');
     case 404:
       return new AppError('unavailable');
@@ -169,13 +170,23 @@ export const surveyService = {
     }
   },
 
-  async submit(payload: SubmissionPayload, idempotencyKey: string, signal?: AbortSignal): Promise<SubmitResult> {
+  async submit(
+    payload: SubmissionPayload,
+    idempotencyKey: string,
+    opts: { verificationToken?: string | null; signal?: AbortSignal } = {},
+  ): Promise<SubmitResult> {
+    const { verificationToken, signal } = opts;
     const res = await withRetry(
       async () => {
         const r = await requestJson('/survey/submit', {
           method: 'POST',
           body: payload,
-          headers: { 'Idempotency-Key': idempotencyKey },
+          // The same Idempotency-Key and Turnstile token are reused on retries of one attempt. The backend
+          // treats a retry of an already-saved response as a duplicate instead of re-checking the token.
+          headers: {
+            'Idempotency-Key': idempotencyKey,
+            ...(verificationToken ? { 'X-Turnstile-Token': verificationToken } : {}),
+          },
           signal,
         });
         if (r.status >= 500) throw new AppError('server');

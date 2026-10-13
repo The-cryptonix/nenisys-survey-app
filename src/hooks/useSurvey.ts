@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useToast } from '../components/Toasts';
+import { config } from '../config';
 import { AppError, toAppError } from '../errors';
 import {
   buildPayload,
@@ -59,6 +60,11 @@ export function useSurvey() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<AppError | null>(null);
   const [hasDraft, setHasDraft] = useState(false);
+  // Human check (Cloudflare Turnstile). Tokens are single use, so every failed send asks for a fresh one.
+  const humanEnabled = config.turnstileSiteKey !== '';
+  const [humanToken, setHumanToken] = useState<string | null>(null);
+  const [humanUnavailable, setHumanUnavailable] = useState(false);
+  const [humanAttempt, setHumanAttempt] = useState(0);
 
   const answersRef = useRef(answers);
   const currentIdRef = useRef(currentId);
@@ -202,6 +208,17 @@ export function useSurvey() {
     else setCurrentId(visible[index - 1]?.id ?? null);
   };
 
+  const onHumanToken = useCallback((token: string | null) => {
+    setHumanToken(token);
+    if (token) setHumanUnavailable(false);
+  }, []);
+  const onHumanUnavailable = useCallback(() => setHumanUnavailable(true), []);
+  const retryHumanCheck = () => {
+    setHumanUnavailable(false);
+    setHumanToken(null);
+    setHumanAttempt((n) => n + 1);
+  };
+
   const handleSubmitError = (error: AppError) => {
     switch (error.kind) {
       case 'aborted':
@@ -257,6 +274,11 @@ export function useSurvey() {
       return;
     }
 
+    if (humanEnabled && !humanToken) {
+      push('info', new AppError('verification').message);
+      return;
+    }
+
     const payload = buildPayload(survey.versionId, survey.questions, answers);
     const canonical = JSON.stringify(payload);
     if (keyRef.current?.canonical !== canonical) keyRef.current = { canonical, key: newKey() };
@@ -265,7 +287,7 @@ export function useSurvey() {
     setSubmitting(true);
     setSubmitError(null);
     try {
-      await surveyService.submit(payload, keyRef.current.key);
+      await surveyService.submit(payload, keyRef.current.key, { verificationToken: humanToken });
       markSubmitted(survey.versionId);
       clearDraft(survey.versionId);
       keyRef.current = null;
@@ -273,6 +295,8 @@ export function useSurvey() {
       setHasDraft(false);
       setPhase({ name: 'thanks' });
     } catch (e) {
+      // A token that reached the server is spent, so get a fresh one before the next try.
+      if (humanEnabled) retryHumanCheck();
       handleSubmitError(toAppError(e));
     } finally {
       submittingRef.current = false;
@@ -323,6 +347,16 @@ export function useSurvey() {
     hasDraft,
     submitting,
     submitError,
+    humanCheck: {
+      enabled: humanEnabled,
+      siteKey: config.turnstileSiteKey,
+      ready: humanToken !== null,
+      unavailable: humanUnavailable,
+      attempt: humanAttempt,
+      onToken: onHumanToken,
+      onUnavailable: onHumanUnavailable,
+      retry: retryHumanCheck,
+    },
     setConsent,
     reload: () => load('fresh'),
     start,

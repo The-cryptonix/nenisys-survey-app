@@ -88,7 +88,7 @@ export const LEGAL: Record<LegalId, LegalDoc> = {
         body: [
           [
             'We do not ask for your name or email address.',
-            'We do not use cookies, analytics or advertising trackers on this page.',
+            'We do not use cookies, analytics or advertising trackers on this page. The one outside service involved is a bot check from Cloudflare, which runs when you reach the last question.',
             'Your answers are not linked to you, your device or your connection.',
             'Typed answers can contain personal details if you write them, so please do not.',
           ],
@@ -103,6 +103,7 @@ export const LEGAL: Record<LegalId, LegalDoc> = {
             'A random one-time code your browser creates when you submit, so that a retry can never count twice. We keep only a scrambled (hashed) version of it.',
             'A scrambled (hashed) fingerprint of your answers, used to spot the same response being sent twice.',
             'A scrambled (hashed) identifier derived from your connection, used only to limit abuse. We never store your raw IP address.',
+            'A one-time pass from Cloudflare Turnstile, which our service checks to tell people from bots. We do not keep it with your answers.',
           ],
         ],
       },
@@ -110,7 +111,7 @@ export const LEGAL: Record<LegalId, LegalDoc> = {
         heading: 'What is saved on your device',
         body: [
           'While you answer, this page saves your progress in your browser\'s local storage, so you can return to it. It also saves a small marker after you submit, so the page can tell you that you have already responded.',
-          'This stays on your device. We do not receive it. It is removed when you submit, when you press Start over, or when you clear your browser data. A saved draft older than 7 days is ignored and cleared the next time you open the survey. No cookies are used.',
+          'This stays on your device. We do not receive it. It is removed when you submit, when you press Start over, or when you clear your browser data. A saved draft older than 7 days is ignored and cleared the next time you open the survey. We set no cookies of our own.',
           'The fonts on this page are served from our own site, not from Google or any other font service.',
         ],
       },
@@ -123,7 +124,7 @@ export const LEGAL: Record<LegalId, LegalDoc> = {
       {
         heading: 'Who can see it',
         body: [
-          'Only authorised Nenisys team members who run the survey can see the responses. We use these providers to run it: Vercel hosts this page and the survey service, and Neon hosts the database. They handle data on our behalf. Hosting providers also see technical connection details, such as your IP address, when you load a page; we do not store those with your answers.',
+          'Only authorised Nenisys team members who run the survey can see the responses. We use these providers to run it: Vercel hosts this page and the survey service, and Neon hosts the database. They handle data on our behalf. Cloudflare runs the bot check (Turnstile) on the last question. Cloudflare and our hosting providers also see technical connection details, such as your IP address, when you load a page or the check; we do not store those with your answers.',
           'We do not sell your data, and we do not share individual responses with advertisers.',
         ],
       },
