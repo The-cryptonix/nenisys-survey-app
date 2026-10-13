@@ -1,0 +1,8 @@
+/* Human check (Cloudflare Turnstile). Uses only the colour tokens defined in src/styles.css. */
+.human { margin-top: 18px; }
+.human-check:empty { display: none; }
+.human-note { display: flex; align-items: center; gap: 8px; margin-top: 10px; color: var(--muted); font-size: 0.9rem; }
+.human-note svg { width: 18px; height: 18px; flex: none; }
+.human-note.ok { color: var(--o); }
+.human .banner { flex-wrap: wrap; margin-top: 10px; }
+.human .banner .btn.t { margin-top: 0; }

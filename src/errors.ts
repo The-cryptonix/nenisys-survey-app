@@ -15,6 +15,8 @@ export type ErrorKind =
   | 'outdated'
   | 'validation'
   | 'conflict'
+  | 'verification'
+  | 'verification_unavailable'
   | 'client'
   | 'aborted';
 
@@ -54,6 +56,10 @@ function messageFor(kind: ErrorKind, retryAfterSeconds: number | null): string {
       return 'A few answers need your attention. We have marked them for you.';
     case 'conflict':
       return "We couldn't send that response safely. Please press Submit again.";
+    case 'verification':
+      return "We couldn't confirm that you are a person. Please wait a moment for the check to finish and press Submit again.";
+    case 'verification_unavailable':
+      return 'The check that confirms you are a person could not load. Please check your connection or any content blocker, then try again.';
     case 'client':
       return "We couldn't send your response from this page. Please refresh the page and try again.";
     case 'aborted':

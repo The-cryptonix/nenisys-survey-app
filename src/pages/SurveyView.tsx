@@ -1,4 +1,5 @@
 import { AlertIcon, CheckIcon, ClockIcon, InboxIcon, LockIcon, RefreshIcon } from '../components/Icons';
+import { HumanCheck } from '../components/HumanCheck';
 import { QuestionStep } from '../components/QuestionStep';
 import { LoadingPanel, StatePanel } from '../components/StatePanel';
 import type { SurveyController } from '../hooks/useSurvey';
@@ -80,6 +81,8 @@ export function SurveyView({ s }: { s: SurveyController }) {
 
     case 'ready':
       if (s.stage === 'questions' && s.current) {
+        const hc = s.humanCheck;
+        const last = s.index === s.visible.length - 1;
         return (
           <QuestionStep
             question={s.current}
@@ -87,9 +90,24 @@ export function SurveyView({ s }: { s: SurveyController }) {
             total={s.visible.length}
             answer={s.answers[s.current.id]}
             issue={s.issues[s.current.id]}
-            isLast={s.index === s.visible.length - 1}
+            isLast={last}
             submitting={s.submitting}
             submitError={s.submitError}
+            extra={
+              last && hc.enabled ? (
+                <HumanCheck
+                  siteKey={hc.siteKey}
+                  ready={hc.ready}
+                  unavailable={hc.unavailable}
+                  attempt={hc.attempt}
+                  onToken={hc.onToken}
+                  onUnavailable={hc.onUnavailable}
+                  onRetry={hc.retry}
+                  disabled={s.submitting}
+                />
+              ) : null
+            }
+            submitBlocked={last && hc.enabled && !hc.ready}
             onToggle={(optionId) => s.current && s.toggle(s.current, optionId)}
             onOtherText={(text) => s.current && s.setOtherText(s.current, text)}
             onClear={() => s.current && s.clearAnswer(s.current)}

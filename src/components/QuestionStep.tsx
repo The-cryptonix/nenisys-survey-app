@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import type { AppError } from '../errors';
 import { issueMessage, selectionHint, selectionLimits, type AnswerState } from '../lib/answers';
 import type { SurveyQuestion } from '../types';
@@ -13,6 +13,10 @@ interface Props {
   isLast: boolean;
   submitting: boolean;
   submitError: AppError | null;
+  /** Extra content shown above the buttons (the human check on the last question). */
+  extra?: ReactNode;
+  /** Blocks the submit button without a spinner, e.g. while the human check is pending. */
+  submitBlocked?: boolean;
   onToggle: (optionId: string) => void;
   onOtherText: (text: string) => void;
   onClear: () => void;
@@ -135,6 +139,8 @@ export function QuestionStep(p: Props) {
         </div>
       )}
 
+      {p.extra}
+
       {!q.required && selected.size > 0 && (
         <button type="button" className="btn t" onClick={p.onClear} disabled={p.submitting}>
           Clear my answer
@@ -145,7 +151,12 @@ export function QuestionStep(p: Props) {
         <button type="button" className="btn s" onClick={p.onBack} disabled={p.submitting}>
           Back
         </button>
-        <button type="submit" className="btn p" disabled={p.submitting} aria-busy={p.submitting}>
+        <button
+          type="submit"
+          className="btn p"
+          disabled={p.submitting || p.submitBlocked}
+          aria-busy={p.submitting}
+        >
           {submitLabel}
         </button>
       </div>
