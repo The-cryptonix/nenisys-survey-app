@@ -6,6 +6,7 @@ import '@fontsource/poppins/800.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { App } from './App';
+import { hidePreload, startFaviconAnimation } from './lib/brand';
 import './styles.css';
 
 const root = document.getElementById('root');
@@ -15,4 +16,6 @@ if (root) {
       <App />
     </StrictMode>,
   );
+  hidePreload();
+  startFaviconAnimation();
 }

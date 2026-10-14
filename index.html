@@ -10,8 +10,16 @@
     <meta name="robots" content="noindex,nofollow" />
     <meta name="referrer" content="no-referrer" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <noscript><link rel="stylesheet" href="/noscript.css" /></noscript>
   </head>
   <body>
+    <div id="preload" role="status" aria-label="Loading">
+      <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <circle class="ld-dot" cx="26" cy="23" r="8" fill="currentColor" />
+        <path class="ld-s1" pathLength="1" d="M26 77V44" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" />
+        <path class="ld-s2" pathLength="1" d="M74 23V77L51 50" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </div>
     <div id="root"></div>
     <noscript>This survey needs JavaScript. Please turn it on and reload the page.</noscript>
     <script type="module" src="/src/main.tsx"></script>

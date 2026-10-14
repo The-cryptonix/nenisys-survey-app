@@ -1,0 +1,28 @@
+/* Page loader: the Nenisys N drawing itself, dark on off-white. Markup lives in index.html (#preload). */
+#preload { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: #faf9f5; color: #141413; transition: opacity 0.5s ease, visibility 0.5s; }
+#preload.out { opacity: 0; visibility: hidden; pointer-events: none; }
+#preload svg { width: 112px; height: 112px; display: block; }
+.ld-dot { transform-box: fill-box; transform-origin: center; animation: ld-dot 2s infinite; }
+.ld-s1 { stroke-dasharray: 1; animation: ld-s1 2s infinite; }
+.ld-s2 { stroke-dasharray: 1; animation: ld-s2 2s infinite; }
+
+@keyframes ld-dot {
+  0% { transform: scale(0); animation-timing-function: ease-out; }
+  15% { transform: scale(1.25); }
+  25%, 75% { transform: scale(1); animation-timing-function: ease-in; }
+  90%, 100% { transform: scale(0); }
+}
+@keyframes ld-s1 {
+  0%, 10% { stroke-dashoffset: 1; animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1); }
+  35%, 70% { stroke-dashoffset: 0; animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1); }
+  95%, 100% { stroke-dashoffset: -1; }
+}
+@keyframes ld-s2 {
+  0%, 25% { stroke-dashoffset: 1; animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1); }
+  60%, 75% { stroke-dashoffset: 0; animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1); }
+  100% { stroke-dashoffset: -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ld-dot, .ld-s1, .ld-s2 { animation: none; }
+  #preload { transition: none; }
+}
