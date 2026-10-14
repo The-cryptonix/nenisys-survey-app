@@ -61,7 +61,8 @@ export function MercoraCard() {
           </li>
         </ul>
         <div className="btn-row">
-          <ExtLink className="btn p" href={MERCORA_URL}>
+          {/* Secondary on purpose: the lime button on a screen is reserved for the survey action. */}
+          <ExtLink className="btn s" href={MERCORA_URL}>
             Read more on nenisys.shop
             <ArrowUpRightIcon />
           </ExtLink>
