@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react';
 import { config } from '../config';
-import { TikTokIcon, XIcon } from './Icons';
-
-const TIKTOK_URL = 'https://www.tiktok.com/@nenisys.com';
-const X_URL = 'https://x.com/NENISYS';
+import { MAIN_SITE_URL, MERCORA_LAUNCH_LABEL, MERCORA_URL, launchPending } from '../links';
+import { ExtLink, SocialLinks } from './Extras';
+import { ArrowUpRightIcon, GlobeIcon } from './Icons';
 
 export function Layout({ children }: { children: ReactNode }) {
   const skip = (e: { preventDefault: () => void }) => {
@@ -17,14 +16,29 @@ export function Layout({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <div className="glow" aria-hidden="true" />
+      {launchPending() && (
+        <div className="ribbon">
+          <div className="wrap ribbon-in">
+            <span>Mercora Edge launches {MERCORA_LAUNCH_LABEL}</span>
+            <ExtLink href={MERCORA_URL} className="ribbon-link">
+              Learn more
+              <ArrowUpRightIcon />
+            </ExtLink>
+          </div>
+        </div>
+      )}
       <header className="top">
-        <div className="wrap">
+        <div className="wrap top-in">
           <a className="brand" href="#/">
             <span className="mark" aria-hidden="true">
               N
             </span>
             NENISYS
           </a>
+          <ExtLink href={MAIN_SITE_URL} className="nav-pill">
+            <GlobeIcon />
+            nenisys.shop
+          </ExtLink>
         </div>
       </header>
       <main id="main" tabIndex={-1} className="wrap main">
@@ -32,25 +46,24 @@ export function Layout({ children }: { children: ReactNode }) {
       </main>
       <footer>
         <div className="wrap foot">
-          <div className="foot-top">
-            <div className="foot-brand">
-              <b>NENISYS</b>
-              <span>Follow us for updates</span>
+          <div className="foot-grid">
+            <div className="foot-about">
+              <b className="foot-logo">NENISYS</b>
+              <p>A technology company building products across trading and education.</p>
+              <SocialLinks />
             </div>
-            <div className="social">
-              <a href={TIKTOK_URL} target="_blank" rel="noopener noreferrer" aria-label="Nenisys on TikTok (opens in a new tab)">
-                <TikTokIcon />
-              </a>
-              <a href={X_URL} target="_blank" rel="noopener noreferrer" aria-label="Nenisys on X (opens in a new tab)">
-                <XIcon />
-              </a>
-            </div>
+            <nav aria-label="Explore">
+              <h2>Explore</h2>
+              <ExtLink href={MAIN_SITE_URL}>Main site</ExtLink>
+              <ExtLink href={MERCORA_URL}>Mercora Edge</ExtLink>
+            </nav>
+            <nav aria-label="Legal">
+              <h2>Legal</h2>
+              <a href="#/terms">Terms of Use</a>
+              <a href="#/privacy">Privacy</a>
+              <a href="#/usage">How answers are used</a>
+            </nav>
           </div>
-          <nav aria-label="Legal">
-            <a href="#/terms">Terms of Use</a>
-            <a href="#/privacy">Privacy</a>
-            <a href="#/usage">How answers are used</a>
-          </nav>
           <div className="foot-copy">
             &copy; {new Date().getFullYear()} {config.organisation}
           </div>

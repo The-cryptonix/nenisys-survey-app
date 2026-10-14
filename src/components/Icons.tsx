@@ -77,6 +77,34 @@ export const DeviceIcon = () => (
     <path d="M11 18h2" />
   </Svg>
 );
+export const ListIcon = () => (
+  <Svg>
+    <path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" />
+  </Svg>
+);
+export const CalendarIcon = () => (
+  <Svg>
+    <rect x="4" y="5" width="16" height="15" rx="2" />
+    <path d="M4 10h16M8 3v4M16 3v4" />
+  </Svg>
+);
+export const ArrowUpRightIcon = () => (
+  <Svg>
+    <path d="M7 17L17 7M9 7h8v8" />
+  </Svg>
+);
+export const GlobeIcon = () => (
+  <Svg>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9s1-6.5 3.5-9z" />
+  </Svg>
+);
+export const TrendIcon = () => (
+  <Svg>
+    <path d="M3 17l6-6 4 4 8-8" />
+    <path d="M15 7h6v6" />
+  </Svg>
+);
 
 /* Brand marks are filled shapes, so they use their own svg instead of the stroked Svg wrapper. */
 export const XIcon = () => (
