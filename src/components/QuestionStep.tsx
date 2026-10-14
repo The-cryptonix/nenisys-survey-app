@@ -45,6 +45,10 @@ export function QuestionStep(p: Props) {
 
   const submitLabel = p.submitting ? 'Sending...' : p.isLast ? 'Submit' : !q.required && selected.size === 0 ? 'Skip' : 'Continue';
 
+  const remaining = p.total - p.index;
+  const minsLeft = Math.max(1, Math.ceil(remaining / 3));
+  const timeLeft = remaining === 1 ? 'Last question' : `About ${minsLeft} min left`;
+
   return (
     <form
       className="panel step"
@@ -57,10 +61,16 @@ export function QuestionStep(p: Props) {
       <div className="step-top">
         <span className="step-count">
           Question {p.index + 1} of {p.total}
+          <span className="step-time"> &middot; {timeLeft}</span>
         </span>
         <span className={`badge ${q.required ? 'badge-req' : ''}`}>{q.required ? 'Required' : 'Optional'}</span>
       </div>
-      <progress className="bar" max={p.total} value={p.index + 1} aria-label="Survey progress" />
+      <progress className="sr-only" max={p.total} value={p.index + 1} aria-label="Survey progress" />
+      <ol className="rail" aria-hidden="true">
+        {Array.from({ length: p.total }, (_, i) => (
+          <li key={i} className={i < p.index ? 'done' : i === p.index ? 'now' : ''} />
+        ))}
+      </ol>
 
       <h2 id={ids.title} ref={headingRef} tabIndex={-1} className="q-title">
         {q.prompt}
@@ -160,6 +170,9 @@ export function QuestionStep(p: Props) {
           {submitLabel}
         </button>
       </div>
+      <p className="kbd-hint" aria-hidden="true">
+        Press <kbd>Enter</kbd> to {p.isLast ? 'submit' : 'continue'}
+      </p>
     </form>
   );
 }

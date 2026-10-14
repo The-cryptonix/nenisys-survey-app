@@ -1,4 +1,5 @@
 import { AlertIcon, CheckIcon, ClockIcon, InboxIcon, LockIcon, RefreshIcon } from '../components/Icons';
+import { AfterSurvey } from '../components/Extras';
 import { HumanCheck } from '../components/HumanCheck';
 import { QuestionStep } from '../components/QuestionStep';
 import { LoadingPanel, StatePanel } from '../components/StatePanel';
@@ -32,7 +33,7 @@ export function SurveyView({ s }: { s: SurveyController }) {
 
     case 'unavailable':
       return (
-        <StatePanel icon={<InboxIcon />} title="No survey is open right now">
+        <StatePanel icon={<InboxIcon />} title="No survey is open right now" after={<AfterSurvey />}>
           There is no survey to take at the moment. Please check back soon.
         </StatePanel>
       );
@@ -40,7 +41,7 @@ export function SurveyView({ s }: { s: SurveyController }) {
     case 'closed': {
       const when = formatDateTime(phase.closesAt);
       return (
-        <StatePanel tone="warn" icon={<LockIcon />} title="This survey has closed">
+        <StatePanel tone="warn" icon={<LockIcon />} title="This survey has closed" after={<AfterSurvey />}>
           {isPast(phase.closesAt) && when ? `It stopped taking responses on ${when}. ` : ''}
           Thank you for your interest. It is no longer accepting responses.
         </StatePanel>
@@ -67,6 +68,7 @@ export function SurveyView({ s }: { s: SurveyController }) {
               Someone else is using this device
             </button>
           }
+          after={<AfterSurvey />}
         >
           Thank you. This device has already sent a response, so there is nothing more to do.
         </StatePanel>
@@ -74,7 +76,12 @@ export function SurveyView({ s }: { s: SurveyController }) {
 
     case 'thanks':
       return (
-        <StatePanel tone="success" icon={<CheckIcon />} title="Thank you. We have your response.">
+        <StatePanel
+          tone="success"
+          icon={<CheckIcon />}
+          title="Thank you. We have your response."
+          after={<AfterSurvey />}
+        >
           Your answers were sent anonymously. You can close this page now.
         </StatePanel>
       );

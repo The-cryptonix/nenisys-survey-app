@@ -6,24 +6,29 @@ interface Props {
   title: string;
   children?: ReactNode;
   actions?: ReactNode;
+  /** Extra content shown below the card, e.g. products and follow links. */
+  after?: ReactNode;
 }
 
 /** One calm, centred message for every non-question state (closed, failed, thank-you...). */
-export function StatePanel({ tone = 'neutral', icon, title, children, actions }: Props) {
+export function StatePanel({ tone = 'neutral', icon, title, children, actions, after }: Props) {
   const headingRef = useRef<HTMLHeadingElement>(null);
   useEffect(() => {
     headingRef.current?.focus();
   }, []);
 
   return (
-    <section className={`panel state state-${tone}`}>
-      <div className="state-icon">{icon}</div>
-      <h1 ref={headingRef} tabIndex={-1} className="h-lg">
-        {title}
-      </h1>
-      {children && <div className="lead">{children}</div>}
-      {actions && <div className="btn-row center">{actions}</div>}
-    </section>
+    <>
+      <section className={`panel state state-${tone}`}>
+        <div className="state-icon">{icon}</div>
+        <h1 ref={headingRef} tabIndex={-1} className="h-lg">
+          {title}
+        </h1>
+        {children && <div className="lead">{children}</div>}
+        {actions && <div className="btn-row center">{actions}</div>}
+      </section>
+      {after && <div className="below">{after}</div>}
+    </>
   );
 }
 
