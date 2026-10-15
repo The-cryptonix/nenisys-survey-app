@@ -12,5 +12,5 @@ export const config = {
   /** Proposed retention from the backend privacy notes (docs/PRIVACY.md). Confirm before launch. */
   retentionDays: 90,
   /** Shown on the legal pages. Update whenever the legal text changes. */
-  legalUpdated: '14 October 2026',
+  legalUpdated: '15 October 2026',
 } as const;
