@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { MAIN_SITE_URL, MERCORA_LAUNCH_LABEL, MERCORA_URL, TIKTOK_URL, X_URL, launchPending } from '../links';
-import { ArrowUpRightIcon, CheckIcon, GlobeIcon, TikTokIcon, TrendIcon, XIcon } from './Icons';
+import { ArrowUpRightIcon, CheckIcon, TikTokIcon, XIcon } from './Icons';
 
 /** Every outbound link opens in a new tab and says so to screen readers. */
 export function ExtLink({ href, className, children }: { href: string; className?: string; children: ReactNode }) {
@@ -27,47 +27,55 @@ export function SocialLinks() {
   );
 }
 
-/** Products and services: Mercora Edge, with a read-more link to the main site. */
+/**
+ * Products and services: Mercora Edge, with a read-more link to the main site.
+ * The picture lives in /public/mercora-edge-card.webp. If the file is missing the picture area hides itself.
+ */
 export function MercoraCard() {
   return (
     <section className="product" aria-labelledby="product-title">
       <p className="eyebrow">Products &amp; services</p>
-      <div className="product-card">
-        <div className="product-head">
-          <span className="product-ico" aria-hidden="true">
-            <TrendIcon />
-          </span>
-          {launchPending() && <span className="pill pill-live">Launching {MERCORA_LAUNCH_LABEL}</span>}
+      <div className="pcard">
+        {launchPending() && <span className="pcard-badge">Launching {MERCORA_LAUNCH_LABEL}</span>}
+        <div className="pcard-img">
+          <img
+            src="/mercora-edge-card.webp"
+            width={1536}
+            height={1024}
+            alt="Three stacked black metal cards with glowing orange edges"
+            loading="lazy"
+            decoding="async"
+            onError={(e) => e.currentTarget.parentElement?.classList.add('is-missing')}
+          />
         </div>
-        <h2 id="product-title" className="h-md">
-          Mercora Edge
-        </h2>
-        <p className="lead">
-          A proprietary trading firm that evaluates traders and gives qualified ones funded accounts, powered by an
-          in-house trading engine.
-        </p>
-        <ul className="ticks">
-          <li>
-            <CheckIcon />
-            Clear, transparent rules
-          </li>
-          <li>
-            <CheckIcon />
-            Funded accounts for qualified traders
-          </li>
-          <li>
-            <CheckIcon />
-            Built on an in-house trading engine
-          </li>
-        </ul>
-        <div className="btn-row">
-          {/* Secondary on purpose: the lime button on a screen is reserved for the survey action. */}
-          <ExtLink className="btn s" href={MERCORA_URL}>
-            Read more on nenisys.shop
+        <div className="pcard-body">
+          <h2 id="product-title" className="h-md">
+            Mercora Edge
+          </h2>
+          <p className="lead">
+            A proprietary trading firm that evaluates traders and gives qualified ones funded accounts, powered by an
+            in-house trading engine.
+          </p>
+          <ul className="ticks">
+            <li>
+              <CheckIcon />
+              Clear, transparent rules
+            </li>
+            <li>
+              <CheckIcon />
+              Funded accounts for qualified traders
+            </li>
+            <li>
+              <CheckIcon />
+              Built on an in-house trading engine
+            </li>
+          </ul>
+          <ExtLink className="btn p pcard-cta" href={MERCORA_URL}>
+            Read more
             <ArrowUpRightIcon />
           </ExtLink>
+          <p className="risk">Trading involves risk. Nothing here is financial advice or a guarantee of profit.</p>
         </div>
-        <p className="risk">Trading involves risk. Nothing here is financial advice or a guarantee of profit.</p>
       </div>
     </section>
   );
@@ -142,18 +150,19 @@ export function AfterSurvey() {
   return (
     <>
       <MercoraCard />
-      <section className="follow" aria-labelledby="follow-title">
-        <div>
-          <h2 id="follow-title" className="h-md">
-            Follow Nenisys
-          </h2>
-          <p className="muted">Updates on our products and services.</p>
-        </div>
-        <div className="follow-actions">
-          <SocialLinks />
-          <ExtLink className="btn s" href={MAIN_SITE_URL}>
-            <GlobeIcon />
-            nenisys.shop
+      <section className="follow2" aria-labelledby="follow-title">
+        <h2 id="follow-title" className="h-lg">
+          Follow Nenisys.
+        </h2>
+        <p className="follow2-sub">Be first to know when Mercora Edge launches.</p>
+        <div className="follow2-actions">
+          <ExtLink className="btn p" href={X_URL}>
+            <XIcon />
+            Follow on X
+          </ExtLink>
+          <ExtLink className="btn s" href={TIKTOK_URL}>
+            <TikTokIcon />
+            TikTok
           </ExtLink>
         </div>
       </section>
