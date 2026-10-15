@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import '../extras.css';
 import { config } from '../config';
 import { MAIN_SITE_URL, MERCORA_LAUNCH_LABEL, MERCORA_URL, launchPending } from '../links';
 import { ExtLink, SocialLinks } from './Extras';
@@ -17,10 +18,10 @@ export function Layout({ children }: { children: ReactNode }) {
       </a>
       <div className="glow" aria-hidden="true" />
       {launchPending() && (
-        <div className="ribbon">
-          <div className="wrap ribbon-in">
+        <div className="topbanner">
+          <div className="wrap topbanner-in">
             <span>Mercora Edge launches {MERCORA_LAUNCH_LABEL}</span>
-            <ExtLink href={MERCORA_URL} className="ribbon-link">
+            <ExtLink href={MERCORA_URL} className="topbanner-link">
               Learn more
               <ArrowUpRightIcon />
             </ExtLink>
@@ -30,8 +31,19 @@ export function Layout({ children }: { children: ReactNode }) {
       <header className="top">
         <div className="wrap top-in">
           <a className="brand" href="#/">
-            <span className="mark" aria-hidden="true">
-              N
+            <span className="logo" aria-hidden="true">
+              <svg viewBox="10 10 80 80" focusable="false">
+                <circle cx="26" cy="23" r="8" fill="currentColor" />
+                <path d="M26 44V77" fill="none" stroke="currentColor" strokeWidth="16" strokeLinecap="round" />
+                <path
+                  d="M74 23V77L51 50"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="16"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </span>
             NENISYS
           </a>
