@@ -74,7 +74,10 @@ export function MercoraCard() {
             Read more
             <ArrowUpRightIcon />
           </ExtLink>
-          <p className="risk">Trading involves risk. Nothing here is financial advice or a guarantee of profit.</p>
+          <p className="risk">
+            Trading involves risk. Nothing here is financial advice or a guarantee of profit.{' '}
+            <a href="#/risk">Read the Risk Disclosure</a>.
+          </p>
         </div>
       </div>
     </section>
