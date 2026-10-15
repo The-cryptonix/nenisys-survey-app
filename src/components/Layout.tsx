@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
-import '../extras.css';
 import { config } from '../config';
+import '../extras.css';
 import { MAIN_SITE_URL, MERCORA_LAUNCH_LABEL, MERCORA_URL, launchPending } from '../links';
 import { ExtLink, SocialLinks } from './Extras';
 import { ArrowUpRightIcon, GlobeIcon, WordmarkLogo } from './Icons';
@@ -76,6 +76,7 @@ export function Layout({ children }: { children: ReactNode }) {
               <a href="#/terms">Terms of Use</a>
               <a href="#/privacy">Privacy</a>
               <a href="#/usage">How answers are used</a>
+              <a href="#/risk">Risk Disclosure</a>
             </nav>
           </div>
           <div className="foot-copy">
