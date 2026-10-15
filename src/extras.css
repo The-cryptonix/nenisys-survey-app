@@ -1,6 +1,6 @@
 /*
   Survey page extras: top banner, logo, Products & services card, Follow section.
-  Colours come from the tokens in styles.css (--o lime, --on-o, --line, --glow). Violet is local to the Follow section.
+  Colours come from the tokens in styles.css (--o lime, --on-o, --line, --glow). Violet and blue are local to the Follow section.
   Tweak the glow values here only. Imported once from components/Layout.tsx.
 */
 
@@ -15,6 +15,10 @@
 /* ---- Logo: the same N mark as the main site favicon, on an off-white tile ---- */
 .logo { width: 28px; height: 28px; border-radius: 8px; background: #faf9f5; color: #141413; display: grid; place-items: center; flex: none; }
 .logo svg { width: 22px; height: 22px; display: block; }
+
+/* ---- Footer logo: the main logo (N mark + ENISYS lettering) in the text colour ---- */
+.foot-about .foot-logo { display: block; width: 143px; height: 24px; line-height: 0; color: var(--text); }
+.foot-about .foot-logo svg { display: block; width: 143px; height: 24px; }
 
 /* ---- Products & services card: lime badge on the top border, gradient border that runs out of the badge ---- */
 .product { position: relative; isolation: isolate; }
@@ -42,16 +46,23 @@
 .pcard-body .ticks { margin-top: 14px; }
 .pcard-cta { width: 100%; margin-top: 18px; }
 
-/* ---- Follow Nenisys: "Nightfall violet" ---- */
-.follow2 { position: relative; display: grid; gap: 6px; padding: 28px 22px 24px; border: 1px solid transparent; border-radius: 24px; background:
-  radial-gradient(circle at 0 0, rgba(198, 255, 46, 0.18), rgba(198, 255, 46, 0) 32%) padding-box,
-  radial-gradient(circle at 100% 100%, rgba(124, 92, 255, 0.55), rgba(124, 92, 255, 0) 60%) padding-box,
-  linear-gradient(#111, #111) padding-box,
-  linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.08) 40%, var(--line)) border-box; }
+/* ---- Community card ("Join the community"): indigo glow ----
+   Deliberately a different shape and colour family from the lime product card above:
+   32px corners, violet-to-blue glow on near-black, a faint violet-to-blue border, and white / outline buttons (no lime).
+   The glows are kept soft (low alpha) so the card stands out without pulling attention from the product card.
+   Layers, top to bottom: violet glow behind the heading, blue glow bottom-right, near-black base (padding-box), gradient border (border-box). */
+.follow2 { position: relative; display: grid; gap: 6px; padding: 30px 24px 26px; border: 1px solid transparent; border-radius: 32px; background:
+  radial-gradient(60% 90% at 18% 0%, rgba(124, 92, 255, 0.38), rgba(124, 92, 255, 0) 70%) padding-box,
+  radial-gradient(70% 80% at 100% 100%, rgba(52, 120, 255, 0.22), rgba(52, 120, 255, 0) 70%) padding-box,
+  linear-gradient(135deg, #1b1740 0%, #0f0f12 70%) padding-box,
+  linear-gradient(135deg, rgba(160, 135, 255, 0.5), rgba(70, 130, 255, 0.16) 45%, rgba(255, 255, 255, 0.07)) border-box; }
+.follow2-eyebrow { color: #b9acff; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+.follow2 .h-lg { margin-bottom: 0; }
 .follow2-sub { color: #d0d0cc; font-size: 0.875rem; }
-/* Equal-size buttons: side by side when there is room, stacked with an even gap on phones */
-.follow2-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
-.follow2-actions .btn { flex: 1 1 200px; min-width: 0; }
-@media (max-width: 520px) {
-  .follow2-actions .btn { flex-basis: 100%; }
-}
+/* Two equal buttons side by side on every screen size: X is solid white, TikTok is an outline. */
+.follow2-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+.follow2-actions .btn { width: 100%; min-width: 0; padding: 0 14px; }
+.follow2-x { background: #fff; color: #0f0f12; }
+.follow2-x:hover { background: #e6e6ec; }
+.follow2-tt { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.4); }
+.follow2-tt:hover { background: rgba(255, 255, 255, 0.08); border-color: #fff; }

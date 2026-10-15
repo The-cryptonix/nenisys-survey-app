@@ -3,7 +3,7 @@ import '../extras.css';
 import { config } from '../config';
 import { MAIN_SITE_URL, MERCORA_LAUNCH_LABEL, MERCORA_URL, launchPending } from '../links';
 import { ExtLink, SocialLinks } from './Extras';
-import { ArrowUpRightIcon, GlobeIcon } from './Icons';
+import { ArrowUpRightIcon, GlobeIcon, WordmarkLogo } from './Icons';
 
 export function Layout({ children }: { children: ReactNode }) {
   const skip = (e: { preventDefault: () => void }) => {
@@ -60,7 +60,9 @@ export function Layout({ children }: { children: ReactNode }) {
         <div className="wrap foot">
           <div className="foot-grid">
             <div className="foot-about">
-              <b className="foot-logo">NENISYS</b>
+              <span className="foot-logo" role="img" aria-label="Nenisys">
+                <WordmarkLogo />
+              </span>
               <p>A technology company building products across trading and education.</p>
               <SocialLinks />
             </div>

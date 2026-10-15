@@ -151,18 +151,19 @@ export function AfterSurvey() {
     <>
       <MercoraCard />
       <section className="follow2" aria-labelledby="follow-title">
+        <p className="follow2-eyebrow">Community</p>
         <h2 id="follow-title" className="h-lg">
-          Follow Nenisys.
+          Join the community
         </h2>
-        <p className="follow2-sub">Be first to know when Mercora Edge launches.</p>
+        <p className="follow2-sub">Follow our socials for launch news and updates.</p>
         <div className="follow2-actions">
-          <ExtLink className="btn p" href={X_URL}>
+          <ExtLink className="btn follow2-x" href={X_URL}>
             <XIcon />
-            Follow on X
+            <span className="sr-only">Follow on </span>X
           </ExtLink>
-          <ExtLink className="btn s" href={TIKTOK_URL}>
+          <ExtLink className="btn follow2-tt" href={TIKTOK_URL}>
             <TikTokIcon />
-            TikTok
+            <span className="sr-only">Follow on </span>TikTok
           </ExtLink>
         </div>
       </section>
